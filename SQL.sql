@@ -167,13 +167,6 @@ INSERT INTO State (StateName) VALUES
 ('Michigan'),
 ('Pennsylvania');
 
-INSERT INTO Sample (SampleID, StationID, SampleCode, SampleDate, SampleDepth, SampleDepthUnits, SampleStatusID)  
-VALUES  
-(1, 1, 'OM0168A0001', '1968-04-01', 1.00, 'Feet', 1),  
-(2, 1, 'WDIS_0719152', '2008-06-23', 2.00, 'Meters', 2),  
-(3, 2, 'OM0268A0006', '1968-01-02', 1.00, 'Feet', 1),  
-(4, 1, 'OM0168A0003', '1968-04-01', 1.00, 'Feet', 1),  
-(5, 2, 'OM0268A0007', '1968-01-02', 2.00, 'Feet', 2);
 
 
 INSERT INTO Station (StationNumber, StationType, LocationID)  
@@ -189,7 +182,73 @@ VALUES
 ('01N01E01A001M_9', 'Groundwater', NULL);
 
 
--- Insert data into the parameter table
+INSERT INTO sample (SampleID, StationID, SampleCode, SampleDate, SampleDepth, SampleDepthUnits, SampleStatusID) 
+VALUES 
+(1, 1, 'OM0168A0001', '1968-04-01', 1.00, 'Feet', 1),
+(2, 1, 'WDIS_0719152', '2008-06-23', 2.00, 'Meters', 2),
+(3, 2, 'OM0268A0006', '1968-01-02', 1.00, 'Feet', 1),
+(4, 1, 'OM0168A0003', '1968-04-01', 1.00, 'Feet', 1),
+(5, 2, 'OM0268A0007', '1968-01-02', 2.00, 'Feet', 2);
+
+INSERT INTO SampleStatus (StatusName)  
+VALUES  
+('Active'),
+('Inactive'),
+('Pending'),
+('Completed'),
+('Rejected'),
+('Expired');
+
+INSERT INTO Sample_Parameter (SampleID, ParameterID)
+VALUES 
+(1, 101),
+(2, 102),
+(3, 103),
+(4, 104),
+(5, 105),
+(6, 106);
+
+INSERT INTO Analysis (SampleID, ParameterID, Result, Units)  
+VALUES  
+(1, 101, 3480, 'uS/cm'),
+(2, 102, 7.7, 'mg/L'),
+(3, 103, 68, 'mg/L'),
+(4, 104, 758, 'mg/L'),
+(5, 105, 59, 'mg/L'),
+(6, 106, 510, 'mg/L'),
+(7, 107, 270, 'mg/L as CaCO3'),
+(8, 108, 412, 'mg/L as CaCO3'),
+(9, 109, 8, 'pH Units');
+
+INSERT INTO Analysis_Method (AnalysisID, MethodID)  
+VALUES  
+(1, 101),  
+(2, 102),  
+(3, 103),  
+(4, 104),  
+(5, 105),  
+(6, 106);
+
+INSERT INTO WaterQualityStandard (ParameterID, MaximumAllowedValue, StandardSource)
+VALUES
+(1, 0.50, 'EPA Water Quality Standards'),
+(2, 0.10, 'WHO Drinking Water Guidelines'),
+(3, 2.00, 'BIS IS 10500:2012'),
+(4, 0.30, 'EU Water Framework Directive'),
+(5, 0.05, 'US Safe Drinking Water Act'),
+(6, 0.10, 'ISO 14000 Environmental Management');
+
+
+INSERT INTO MethodTypes (MethodTypeID, TypeName) 
+VALUES 
+(1, 'Chemical'),
+(2, 'Physical'),
+(3, 'Thermal'),
+(4, 'pH Measurement'),
+(5, 'Repetitive Chemical');
+
+
+
 INSERT INTO parameter (ParameterName, FdrResult, FdrReportingLimit)
 VALUES
 ('Dissolved Aluminum', 3480, 1),
@@ -208,6 +267,17 @@ INSERT INTO ParameterTypes (TypeName) VALUES
 ('Water Temperature'),
 ('pH');
 
+
+INSERT INTO WaterQualityStandard (ParameterID, MaximumAllowedValue, StandardSource)
+VALUES
+(1, 0.50, 'EPA Water Quality Standards'),
+(2, 0.10, 'WHO Drinking Water Guidelines'),
+(3, 2.00, 'BIS IS 10500:2012'),
+(4, 0.30, 'EU Water Framework Directive'),
+(5, 0.05, 'US Safe Drinking Water Act'),
+(6, 0.10, 'ISO 14000 Environmental Management');
+
+
 INSERT INTO Method (MethodName, UnsName)
 VALUES
     ('EPA 360.2 (Field)', 'mg/L'),
@@ -223,5 +293,8 @@ SELECT * FROM Station;
 SELECT * FROM sample;
 SELECT * FROM Parameter;
 SELECT * FROM method;
+SELECT * FROM ParameterTypes;
+SELECT * FROM Analysis;
+
 
 SHOW DATABASES;
